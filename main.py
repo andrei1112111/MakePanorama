@@ -25,7 +25,7 @@ class PanoramaGenerator():
         return images
 
 
-    def make_panorama_SIFT(self, images: list):
+    def make_panorama_SIFT(self, images: list, lou_rule_rate=0.7):
         """
         Сшивает список изображений в одну панораму с помощью OpenCV SIFT.
         :param images: список изображений (numpy массивы)
@@ -52,7 +52,7 @@ class PanoramaGenerator():
             # === правило Лоу === оставляем только пары где точки достаточно похожи
             good_matches = []
             for m, n in matches:
-                if m.distance < 0.7 * n.distance:
+                if m.distance < lou_rule_rate * n.distance:
                     good_matches.append(m)
 
             if len(good_matches) < 4:
